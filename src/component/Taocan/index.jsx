@@ -33,7 +33,7 @@ export default function Taocan(props) {
         <span className={styles.categoryLogo}> {taocan.eat.title}</span>
         {taocan.eat.content}
       </div>
-      <div className={styles.ctgLine}>
+      <div className={styles.ctgLine} style={{ marginBottom: 0 }}>
         <span className={styles.categoryLogo}>{taocan.play.title}</span>
         {taocan.play.content}
       </div>

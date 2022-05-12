@@ -34,13 +34,6 @@ export default function DatePopover(props) {
             horizontal: 'left',
           }}
         >
-          {/* {dialogVisible ? <Drawer
-        placement="bottom"
-        closable="false"
-        // onClose={this.onClose}
-        visible={dialogVisible}
-        key="buttom" mask="true" maskClosable='false'
-      > */}
           <div className=" p-3">
             <Calendar activeDate={activeDate} setDate={setDate}></Calendar>
           </div>

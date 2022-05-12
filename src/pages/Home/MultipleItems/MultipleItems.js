@@ -37,12 +37,17 @@ export default function MultipleItems() {
   }
 
   return (
-    <div style={{ marginBottom: '1px' }}>
+    <div style={{ marginBottom: '1px', padding: 1 }}>
       <Slider {...settings}>
         {picture.map((item) => {
           return (
             <div key={item.picture_id}>
-              <Image src={item.large_url} height={170} width={'100%'}></Image>
+              <Image
+                src={item.large_url}
+                height={170}
+                width={'100%'}
+                alt={item.picture_title}
+              ></Image>
             </div>
           )
         })}

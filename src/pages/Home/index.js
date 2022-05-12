@@ -11,6 +11,7 @@ import MultipleItems from './MultipleItems/MultipleItems'
 import MovableItem from '../../component/MovableItem'
 import { reqLayoutOrder, updateLayoutOrder } from '../../api'
 import { message } from 'antd'
+
 import './Home.css'
 
 export default function Home() {
@@ -26,36 +27,36 @@ export default function Home() {
     let id = PubSub.subscribe('changeLayout', function (_, config) {
       setLayout(config)
     })
-
     return () => {
       PubSub.unsubscribe(id)
     }
   }, [])
 
-  const moveCardHandler = (dragIndex, hoverIndex) => {
+  const moveCardHandler = async (dragIndex, hoverIndex) => {
     const dragItem = layout[dragIndex] //{title,key}
 
     if (dragItem) {
-      setLayout((prevState) => {
-        const coppiedStateArray = [...prevState]
-        //交互两个ITEM在数组中的位置
+      const coppiedStateArray = [...layout]
+      //交互两个ITEM在数组中的位置
 
-        // remove item by "hoverIndex" and put "dragItem" instead
-        //由被删除的元素组成的一个数组。如果只删除了一个元素，则返回只包含一个元素的数组。如果没有删除元素，则返回空数组。
-        const prevItem = coppiedStateArray.splice(hoverIndex, 1, dragItem)
-        //在hoverIndex位置的item删除，插入dragItem
+      // remove item by "hoverIndex" and put "dragItem" instead
+      //由被删除的元素组成的一个数组。如果只删除了一个元素，则返回只包含一个元素的数组。如果没有删除元素，则返回空数组。
+      const prevItem = coppiedStateArray.splice(hoverIndex, 1, dragItem)
+      //在hoverIndex位置的item删除，插入dragItem
 
-        // remove item by "dragIndex" and put "prevItem" instead
-        coppiedStateArray.splice(dragIndex, 1, prevItem[0])
+      // remove item by "dragIndex" and put "prevItem" instead
+      coppiedStateArray.splice(dragIndex, 1, prevItem[0])
 
-        return coppiedStateArray
-      })
-      updateDataInServe()
+      setLayout(coppiedStateArray)
+      updateDataInServe(coppiedStateArray)
+
+      //告诉tree重新获取配置信息
+      PubSub.publish('changeLayoutFromHome')
     }
   }
 
-  const updateDataInServe = () => {
-    updateLayoutOrder(layout).then((res) => {
+  const updateDataInServe = (coppiedStateArray) => {
+    updateLayoutOrder(coppiedStateArray).then((res) => {
       if (res.code === 200) {
         message.success('布局修改成功')
       } else {
@@ -76,6 +77,7 @@ export default function Home() {
                   index={index}
                   moveCardHandler={moveCardHandler}
                   key={obj.key}
+                  name={obj.title}
                 >
                   <MultipleItems />
                 </MovableItem>
@@ -87,6 +89,7 @@ export default function Home() {
                   index={index}
                   moveCardHandler={moveCardHandler}
                   key={obj.key}
+                  name={obj.title}
                 >
                   <Detail />
                 </MovableItem>
@@ -98,6 +101,7 @@ export default function Home() {
                   index={index}
                   moveCardHandler={moveCardHandler}
                   key={obj.key}
+                  name={obj.title}
                 >
                   <DatePicker />
                 </MovableItem>
@@ -109,11 +113,14 @@ export default function Home() {
                   index={index}
                   moveCardHandler={moveCardHandler}
                   key={obj.key}
+                  name={obj.title}
                 >
                   <RoomList />
                 </MovableItem>
               )
             }
+            default:
+              return <></>
           }
         })}
       </DndProvider>

@@ -1,13 +1,19 @@
 import React from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import { useRef } from 'react'
-// import { COLUMN_NAMES } from "../constants";
 
-const MovableItem = ({ index, moveCardHandler, children }) => {
+const MovableItem = ({
+  index,
+  moveCardHandler,
+  children,
+  name,
+  type = 'column',
+}) => {
   const ref = useRef(null)
 
   const [{ isOver }, drop] = useDrop({
-    accept: 'Our first type',
+    accept: type,
+    drop: () => ({ name, index, type }), //接收容器暴露给拖拽对象的属性
     hover(item, monitor) {
       //将项目悬停在组件上时调用。
       if (!ref.current) {
@@ -39,22 +45,30 @@ const MovableItem = ({ index, moveCardHandler, children }) => {
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return
       }
-      console.log('hover')
       // Time to actually perform the action
       //moveCardHandler(dragIndex, hoverIndex)
     },
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop(),
+    }),
   })
 
   const [{ isDragging }, drag] = useDrag({
-    item: { index, type: 'Our first type' },
+    item: { index, type, name },
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult()
-      console.log('end')
       //获取拖拽对象所处容器的数据
 
       if (dropResult) {
         const { index } = dropResult
+        // if (item.name === name) {
+        //   return
+        // }
         //放下拖拽对象后，重新调整数据所在的列，从而引起页面变化
+        // if (item.index === index) {
+        //   return
+        // }
         moveCardHandler(item.index, index)
       }
     },

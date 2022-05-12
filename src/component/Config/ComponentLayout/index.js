@@ -5,23 +5,29 @@ import { DownOutlined } from '@ant-design/icons'
 import PubSub from 'pubsub-js'
 import { reqLayoutOrder, updateLayoutOrder } from '../../../api'
 
-export default function ComponentLayout() {
+export default function ComponentLayout(props) {
   const [treeData, setTreeData] = useState([])
   useEffect(() => {
+    getData()
+
+    let subId = PubSub.subscribe('changeLayoutFromHome', function () {
+      if (props.activeKey === 'layout') {
+        getData()
+      }
+    })
+
+    return () => {
+      PubSub.unsubscribe(subId)
+    }
+  }, [])
+
+  const getData = () => {
     //从服务器上取出布局配置，用tree的形式展示
     reqLayoutOrder().then((res) => {
       if (res.code === 200) {
         setTreeData(res.data)
       }
     })
-  }, [])
-
-  const onDragEnter = (info) => {
-    console.log(info)
-    // expandedKeys 需要受控时设置
-    // this.setState({
-    //   expandedKeys: info.expandedKeys,
-    // });
   }
 
   const onDrop = (info) => {
@@ -29,6 +35,13 @@ export default function ComponentLayout() {
     //确认放置节点
     const dropKey = info.node.key
     const dragKey = info.dragNode.key
+
+    //拖动的是房间item节点，但是接收的不是同类型的，直接返回
+    if (Number(dragKey) && !Number(dropKey) && dropKey !== 'roomList') {
+      message.info(`${info.node.title}组件不可以接收${info.dragNode.title}组件`)
+      return
+    }
+
     const dropPos = info.node.pos.split('-')
     const dropPosition = info.dropPosition - Number(dropPos[dropPos.length - 1])
 
@@ -59,8 +72,8 @@ export default function ComponentLayout() {
         item.children.unshift(dragObj)
       })
     } else if (
-      (info.node.props.children || []).length > 0 && // Has children
-      info.node.props.expanded && // Is expanded
+      (info.node.children || []).length > 0 && // Has children
+      info.node.expanded && // Is expanded
       dropPosition === 1 // On the bottom gap
     ) {
       loop(data, dropKey, (item) => {
@@ -84,10 +97,17 @@ export default function ComponentLayout() {
       }
     }
 
+    const type = Number(dragObj.key) ? 'roomItem' : 'column'
     updateLayoutOrder(data).then((res) => {
       if (res.code === 200) {
         message.success('布局修改成功')
-        PubSub.publish('changeLayout', data)
+
+        if (type === 'roomItem') {
+          PubSub.publish('changeItemsLayout')
+        } else {
+          PubSub.publish('changeLayout', data)
+        }
+
         setTreeData(data)
       } else {
         message.error('布局修改失败，请重试')
@@ -99,8 +119,6 @@ export default function ComponentLayout() {
     <Tree
       showLine
       draggable
-      blockNode
-      onDragEnter={onDragEnter}
       onDrop={onDrop}
       switcherIcon={<DownOutlined />}
       autoExpandParent

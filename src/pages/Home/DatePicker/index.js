@@ -6,6 +6,7 @@ import isoWeek from 'dayjs/plugin/isoWeek'
 import isToday from 'dayjs/plugin/isToday'
 import localeData from 'dayjs/plugin/localeData'
 import 'dayjs/locale/zh-cn'
+import PubSub from 'pubsub-js'
 import DatePopover from './DatePopover'
 import './DatePicker.css'
 
@@ -33,6 +34,7 @@ export default function DatePicker(props) {
 
   useEffect(() => {
     setWeek(getThisWeek())
+    PubSub.publish('updateDate', activeDate)
   }, [activeDate])
 
   const toToday = () => {
@@ -67,6 +69,7 @@ export default function DatePicker(props) {
 
   return (
     <div className="picker_style">
+      <span className="tip">选择入住日期: </span>
       <div className="date-picker">
         {/* 上翻按钮 */}
         <Button size="small" onClick={toLastWeek}>

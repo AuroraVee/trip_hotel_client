@@ -17,6 +17,15 @@ export function reqHotelRoomDetail() {
   })
 }
 
+//更新酒店房间顺序
+export function updateRoomList(data) {
+  return request({
+    url: '/hotel-room-detail',
+    method: 'post',
+    data: { list: data },
+  })
+}
+
 //获取某个酒店的所有图片
 export function reqHotelPicture() {
   return request({
@@ -55,14 +64,10 @@ export function reqLayoutOrder() {
 }
 
 //将新配置上传到服务器
-export function updateLayoutOrder(data) {
+export function updateLayoutOrder(data, type = 'column') {
   return request({
-    url: '/order',
+    url: `/order/${type}`,
     method: 'post',
-    params: { order: data },
-    paramsSerializer: (params) => {
-      //将数组形式的query转成单个值拼接形式
-      return qs.stringify(params, { arrayFormat: 'indices' })
-    },
+    data: { order: data },
   })
 }

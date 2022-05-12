@@ -16,6 +16,13 @@
   /* justify-content: space-between; */
 }
 
+.tip {
+  display: inline-block;
+  font-size: medium;
+  height: 32px;
+  line-height: 32px;
+  margin-right: 5px;
+}
 .process {
   background-color: #fff;
   display: flex;
@@ -35,6 +42,11 @@
   display: flex;
   flex-direction: row;
   margin: 5px;
+}
+
+.weekday:hover {
+  color: #319273;
+  font-size: medium;
 }
 .date_button {
   margin-left: 2vw;

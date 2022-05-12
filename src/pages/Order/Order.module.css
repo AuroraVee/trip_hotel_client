@@ -53,9 +53,9 @@
   font-weight: 600;
 }
 .package {
-  margin-top: 2vw;
-  padding: 2vw 1vw 0.5vw 0;
-  width: 98%;
+  margin-top: 5px;
+  padding: 1vw 1vw 1vw 3px;
+  width: 100%;
   background-color: #fff8f2;
 }
 .more {
@@ -70,6 +70,7 @@
   align-items: center;
   margin-bottom: 2vw;
 }
+
 .categoryLogo {
   box-sizing: border-box;
   margin-right: 2vw;

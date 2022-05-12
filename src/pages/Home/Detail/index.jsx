@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { Card, Row, Col, Rate } from 'antd'
-import '../Home.css'
-import { reqHotelDetail } from '../../../api'
-import LinkButton from '../../../component/LinkButton'
+import React from 'react'
+import PubSub from 'pubsub-js'
+import { useEffect, useState } from 'react'
 import {
   CheckCircleOutlined,
   ExclamationCircleOutlined,
   RedEnvelopeFilled,
   CaretRightFilled,
 } from '@ant-design/icons'
-import { Button } from 'antd'
+import { format } from '../../../utils'
+import '../Home.css'
+import Taocan from '../../../component/Taocan'
 
 // export default function Detail() {
 //   const [detail, setDetail] = useState({})
@@ -77,8 +77,26 @@ import { Button } from 'antd'
 // }
 
 export default function Detail() {
+  const [date, setDate] = useState(null)
+  useEffect(() => {
+    let subID = PubSub.subscribe('updateDate', (_, date) => {
+      //console.log(date)
+      setDate(format(date))
+    })
+
+    return () => {
+      PubSub.unsubscribe(subID)
+    }
+  }, [])
+
+  const taocan = {
+    live: { title: '住', content: '双床房/晚' },
+    eat: { title: '食', content: '早餐成人2份/天+餐饮礼遇二选一1份' },
+    play: { title: '享', content: '儿童乐园1小时畅玩1份+租用儿童挖沙玩具1份' },
+  }
+
   return (
-    <>
+    <div style={{ padding: 5 }}>
       <div className="box1">
         <div className="price">
           <div id="font">￥2699</div>
@@ -90,8 +108,8 @@ export default function Detail() {
             <div className="discount">
               <RedEnvelopeFilled
                 style={{ fontSize: '16px', color: '#F65E59' }}
-              />{' '}
-              优惠1900{' '}
+              />
+              优惠1900
               <CaretRightFilled
                 style={{ fontSize: '16px', color: '#F66258' }}
               />
@@ -100,18 +118,19 @@ export default function Detail() {
         </div>
         <div className="sale">已售14份</div>
       </div>
+      <Taocan taocan={taocan} />
       <div className="box3">
         <div className="green">
-          <CheckCircleOutlined style={{ fontSize: '16px', color: '#319273' }} />{' '}
+          <CheckCircleOutlined style={{ fontSize: '16px', color: '#319273' }} />
           过期退 随时退 全额退
         </div>
         <div className="process">
           <ExclamationCircleOutlined
             style={{ fontSize: '16px', color: '#323232' }}
-          />{' '}
-          至少提前1天预约，有效期到2022年6月30日离店
+          />
+          {`至少提前1天预约${date ? ',有效期到' + date + '离店' : ''}`}
         </div>
       </div>
-    </>
+    </div>
   )
 }

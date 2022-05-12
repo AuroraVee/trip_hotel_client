@@ -1,26 +1,22 @@
 import React, { useState } from 'react'
-import { Card, Input, Toast } from 'antd-mobile'
+
+import { Card, Input } from 'antd-mobile'
 import styles from './Order.module.css'
 import RenderPicker from './RenderPicker/RenderPicker'
 import Taocan from '../../component/Taocan'
 
 export default function Order(props) {
-  const { taocan, hotelName, roomItem } = props.location.state
+  const { taocan, hotelName, roomItem, leaveDate } = props.location.state
 
   const [orderNum, setOrderNum] = useState(1)
   const [phoneNum, setPhoneNum] = useState('')
+
   //返回上页
   const back = () => props.history.go(-1)
 
   const getOrderNum = (value) => {
     console.log(value)
     setOrderNum(value[0])
-  }
-
-  const formatDate = () => {
-    // const date = dateRef.current.getActiveDate()
-    // const time = `${date.year()}年${date.month() + 1}月${date.date() + 1}日`
-    // return time
   }
 
   return (
@@ -143,7 +139,7 @@ export default function Order(props) {
                 p-id="10064"
               ></path>
             </svg>
-            有效期到2022年5月1日离店
+            有效期到{leaveDate}离店
           </span>
         </div>
         <div className={styles.ctgLine}>
@@ -264,7 +260,7 @@ export default function Order(props) {
           <span style={{ color: 'orange' }}> ￥</span>
         </div>
         <span style={{ fontSize: '8vw', color: 'orange', fontWeight: '600' }}>
-          {888 * orderNum}
+          {roomItem.min_price * orderNum}
         </span>
         <div className={styles.payButton}>去支付</div>
       </div>

@@ -3,13 +3,19 @@
   /* position: fixed; */
   display: flex;
   flex-direction: row;
-  height: 4vh;
+  height: 6vh;
   width: 100%;
   padding: 5px;
-  margin: 5px 0 0 0;
+  margin: 0;
   align-items: center;
   justify-content: space-between;
 }
+
+.header_center {
+  font-size: medium;
+  font-weight: bold;
+}
+
 /* .header_left {
   width: 10vw;
   margin-left: 10px;
