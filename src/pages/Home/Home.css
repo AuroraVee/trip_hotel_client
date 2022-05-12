@@ -1,0 +1,132 @@
+* {
+  touch-action: none;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+.homeHeader {
+  background-color: #fff;
+  /* position: fixed; */
+  display: flex;
+  flex-direction: row;
+  height: 4vh;
+  width: 100%;
+  padding: 5px;
+}
+.header_left {
+  width: 10vw;
+}
+.header_title {
+  flex: 1;
+  text-align: center;
+}
+.header_rightone {
+  width: 8vw;
+}
+.header_righttwo {
+  width: 15vw;
+}
+.wrapper {
+  touch-action: none;
+  height: 160px;
+}
+.contentStyle {
+  height: 60px;
+  color: #fff;
+  text-align: center;
+  background: #364d79;
+}
+.swiper {
+  height: 160px;
+}
+#root {
+  height: 100%;
+}
+.home_style {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background-color: rgb(225, 225, 225);
+}
+.bill_button {
+  position: absolute;
+  bottom: 4vh;
+  width: 70%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  height: 5vh;
+  color: #fff;
+  background-color: rgb(255, 136, 6);
+  border: none;
+  font-size: 15px;
+  border-radius: 3%;
+}
+.box3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.box1 {
+  display: flex;
+  flex-direction: row;
+  font-size: 14px;
+  height: 100px;
+  width: 100%;
+  background-color: #ff444b;
+}
+
+.price {
+  display: flex;
+  flex-wrap: wrap;
+  /* line-height: 100px; */
+  width: 350px;
+  flex: 0 1 2;
+  color: #fffffa;
+}
+
+.price div {
+  /* width: 50px; */
+  height: 50px;
+  display: flex;
+  align-items: flex-end;
+  margin-left: 10px;
+}
+
+#font {
+  display: flex;
+  font-size: 25px;
+  font-weight: bold;
+  height: 50px;
+  align-items: flex-end;
+  /* width: 100px; */
+}
+
+.sale {
+  flex: 1;
+  color: #fffffa;
+  line-height: 100px;
+  text-align: right;
+  margin-right: 20px;
+}
+
+.price .discount {
+  /* display: flex; */
+  font-weight: bold;
+  color: #ea605d;
+  background-color: #fefcff;
+  height: 20px;
+  width: 100px;
+  margin-left: 10px;
+}
+.green {
+  margin-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-top: 5px;
+}
+.process {
+  padding-bottom: 5px;
+  padding-top: 5px;
+  padding-left: 5px;
+}

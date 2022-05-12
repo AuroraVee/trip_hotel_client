@@ -1,0 +1,41 @@
+.date-picker {
+  display: inline-flex !important;
+  align-items: center;
+  background-color: #fff;
+}
+.picker_style {
+  background-color: #fff;
+  margin: 2px 0;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+}
+.title {
+  display: inline-flex;
+  align-items: center;
+  /* justify-content: space-between; */
+}
+
+.process {
+  background-color: #fff;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  font-size: 14px;
+}
+.green {
+  background-color: #fff;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  font-size: 14px;
+  color: #319273;
+}
+.weekday {
+  display: flex;
+  flex-direction: row;
+  margin: 5px;
+}
+.date_button {
+  margin-left: 2vw;
+}

@@ -1,0 +1,23 @@
+.theme {
+  margin: 10px;
+}
+
+.theme-item {
+  display: grid;
+  grid-template-columns: repeat(5, 40px);
+  padding: 5px;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.theme-item-button {
+  border: 1px solid black;
+  width: 20px !important;
+  display: inline-block !important;
+  height: 20px;
+}
+
+.theme-item-button:hover {
+  border-color: aqua;
+  border-width: 2px;
+}
