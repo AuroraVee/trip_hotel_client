@@ -11,13 +11,19 @@ export default function ComponentLayout(props) {
     getData()
 
     let subId = PubSub.subscribe('changeLayoutFromHome', function () {
-      if (props.activeKey === 'layout') {
-        getData()
-      }
+      getData()
+      // if (props.activeKey === 'layout') {
+      //   getData()
+      // }
+    })
+
+    let id = PubSub.subscribe('changeItemLayoutFromRoomList', () => {
+      getData()
     })
 
     return () => {
       PubSub.unsubscribe(subId)
+      PubSub.unsubscribe(id)
     }
   }, [])
 
@@ -98,7 +104,7 @@ export default function ComponentLayout(props) {
     }
 
     const type = Number(dragObj.key) ? 'roomItem' : 'column'
-    updateLayoutOrder(data).then((res) => {
+    updateLayoutOrder(data, type).then((res) => {
       if (res.code === 200) {
         message.success('布局修改成功')
 

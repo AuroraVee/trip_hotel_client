@@ -69,11 +69,11 @@ export default function DatePicker(props) {
 
   return (
     <div className="picker_style">
-      <span className="tip">选择入住日期: </span>
-      <div className="date-picker">
+      <div className="tip">选择入住日期: </div>
+      <div className="date-picker" id="date-picker">
         {/* 上翻按钮 */}
         <Button size="small" onClick={toLastWeek}>
-          <LeftOutlined fontSize="12px" />
+          <LeftOutlined fontSize="10px" />
         </Button>
         {/* 七天日期 */}
         {thisWeek.map((item) => {
@@ -94,7 +94,7 @@ export default function DatePicker(props) {
         })}
         {/* 下翻按钮 */}
         <Button size="small" onClick={toNextWeek}>
-          <RightOutlined fontSize="12px" />
+          <RightOutlined fontSize="10px" />
         </Button>
         {/* 当前选中日期对应星期几 */}
         <Button

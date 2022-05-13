@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { message, Image } from 'antd'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import './MultipleItems.css'
 
 export default function MultipleItems() {
   const [picture, setPicture] = useState([])
@@ -33,18 +34,18 @@ export default function MultipleItems() {
     autoplay: true, //自动播放，速度默认为（3000毫秒）
     speed: 500, //自动播放速度（毫秒）
     slidesToShow: 1, //在一帧中显示3张卡片
-    slidesToScroll: 3, //一次滚动3张卡片
+    slidesToScroll: 1, //一次滚动3张卡片
   }
 
   return (
-    <div style={{ marginBottom: '1px', padding: 1 }}>
+    <div style={{ marginBottom: '2px', padding: 1 }}>
       <Slider {...settings}>
         {picture.map((item) => {
           return (
             <div key={item.picture_id}>
               <Image
                 src={item.large_url}
-                height={170}
+                height={200}
                 width={'100%'}
                 alt={item.picture_title}
               ></Image>

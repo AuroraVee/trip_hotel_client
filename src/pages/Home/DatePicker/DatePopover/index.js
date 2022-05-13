@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Popover } from 'antd'
+import { Drawer } from 'antd'
 import Calendar from './calendar'
 import './calendar/calendar.css'
 
@@ -23,12 +23,12 @@ export default function DatePopover(props) {
 
   return (
     <div>
-      {dialogVisible ? (
-        <Popover
+        <Drawer
           id={id}
-          open={open}
+          visible={open}
           anchorEl={anchorEl}
           onClose={handleClose}
+          placement='bottom'
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'left',
@@ -38,10 +38,7 @@ export default function DatePopover(props) {
             <Calendar activeDate={activeDate} setDate={setDate}></Calendar>
           </div>
           {/* </Drawer> : "" */}
-        </Popover>
-      ) : (
-        ''
-      )}
+        </Drawer>
     </div>
   )
 }

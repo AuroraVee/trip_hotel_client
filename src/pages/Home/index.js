@@ -11,11 +11,12 @@ import MultipleItems from './MultipleItems/MultipleItems'
 import MovableItem from '../../component/MovableItem'
 import { reqLayoutOrder, updateLayoutOrder } from '../../api'
 import { message } from 'antd'
-
+import { format } from '../../utils'
 import './Home.css'
 
 export default function Home() {
   const [layout, setLayout] = useState([])
+  const [date, setDate] = useState(null)
 
   useEffect(() => {
     reqLayoutOrder().then((res) => {
@@ -27,8 +28,13 @@ export default function Home() {
     let id = PubSub.subscribe('changeLayout', function (_, config) {
       setLayout(config)
     })
+    let dateID = PubSub.subscribe('updateDate', (_, date) => {
+      setDate(format(date))
+    })
+
     return () => {
       PubSub.unsubscribe(id)
+      PubSub.unsubscribe(dateID)
     }
   }, [])
 
@@ -49,15 +55,14 @@ export default function Home() {
 
       setLayout(coppiedStateArray)
       updateDataInServe(coppiedStateArray)
-
-      //告诉tree重新获取配置信息
-      PubSub.publish('changeLayoutFromHome')
     }
   }
 
   const updateDataInServe = (coppiedStateArray) => {
     updateLayoutOrder(coppiedStateArray).then((res) => {
       if (res.code === 200) {
+        //告诉tree重新获取配置信息
+        PubSub.publish('changeLayoutFromHome')
         message.success('布局修改成功')
       } else {
         message.error('布局修改失败，请重试')
@@ -115,7 +120,7 @@ export default function Home() {
                   key={obj.key}
                   name={obj.title}
                 >
-                  <RoomList />
+                  <RoomList date={date} />
                 </MovableItem>
               )
             }

@@ -1,5 +1,5 @@
 // import './App.css';
-import 'antd/dist/antd.css'
+import 'antd/dist/antd.min.css'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import Home from './pages/Home'
 import Order from './pages/Order'

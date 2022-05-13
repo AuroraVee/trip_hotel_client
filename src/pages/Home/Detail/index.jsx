@@ -96,15 +96,17 @@ export default function Detail() {
   }
 
   return (
-    <div style={{ padding: 5 }}>
-      <div className="box1">
-        <div className="price">
-          <div id="font">￥2699</div>
-          <div>2晚</div>
-          <div>
-            <s>￥4599</s>
+    <div style={{ padding: 3 }}>
+      <div className="discountbox">
+        <div className="box1">
+          <div className="price">
+            <div id="font">￥2699</div>
+            <div>2晚</div>
+            <div>
+              <s>￥4599</s>
+            </div>
           </div>
-          <div style={{ width: '200px' }}>
+          <div>
             <div className="discount">
               <RedEnvelopeFilled
                 style={{ fontSize: '16px', color: '#F65E59' }}
@@ -121,12 +123,14 @@ export default function Detail() {
       <Taocan taocan={taocan} />
       <div className="box3">
         <div className="green">
-          <CheckCircleOutlined style={{ fontSize: '16px', color: '#319273' }} />
+          <CheckCircleOutlined
+            style={{ fontSize: '16px', color: '#319273', padding: '4px' }}
+          />
           过期退 随时退 全额退
         </div>
         <div className="process">
           <ExclamationCircleOutlined
-            style={{ fontSize: '16px', color: '#323232' }}
+            style={{ fontSize: '16px', color: '#323232', padding: '4px' }}
           />
           {`至少提前1天预约${date ? ',有效期到' + date + '离店' : ''}`}
         </div>

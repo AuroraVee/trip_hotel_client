@@ -52,7 +52,6 @@ body {
   font-size: 14px;
   height: 100px;
   width: 100%;
-  background-color: #ff444b;
 }
 
 .price {
@@ -80,16 +79,26 @@ body {
   align-items: flex-end;
   /* width: 100px; */
 }
-
+.discountbox{
+  background-color: #ff444b;
+  display: flex;
+  flex-direction: row;
+  /* flex:1; */
+}
 .sale {
-  flex: 1;
+  flex: 2;
   color: #fffffa;
   line-height: 100px;
   text-align: right;
   margin-right: 20px;
 }
-
-.price .discount {
+.box1 {
+  display: flex;
+  flex-direction: column;
+  width: 78vw;
+  flex:1;
+}
+.discount {
   /* display: flex; */
   font-weight: bold;
   color: #ea605d;

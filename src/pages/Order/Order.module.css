@@ -18,6 +18,7 @@
   width: 100%;
   height: 7vh;
   background-color: #0083f6;
+  background-image: linear-gradient(to right, #00a7fa, #0080f6);
   color: #fff;
   font-size: 5vw;
   z-index: 2;
@@ -25,8 +26,8 @@
 .back {
   position: absolute;
   left: 5vw;
-  width: 8vw;
-  height: 8vw;
+  width: 6vw;
+  height: 6vw;
 }
 .hotelInfoBg {
   position: absolute;
@@ -35,6 +36,7 @@
   width: 100%;
   height: 50vw;
   background-color: #0083f6;
+  background-image: linear-gradient(to right, #00a7fa, #0080f6);
   z-index: 0;
 }
 .hotelInfo {
@@ -57,6 +59,7 @@
   padding: 1vw 1vw 1vw 3px;
   width: 100%;
   background-color: #fff8f2;
+  background-image: linear-gradient(to right, #fff, #fff8f2);
 }
 .more {
   float: right;
@@ -92,12 +95,19 @@
   padding-right: 3vw;
 }
 .lastTip {
+  display: flex;
   width: 92%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  margin-right: 3vw;
+  padding-right: 3vw;
+}
+.lastTipLogo {
+  margin-right: 1vw;
+  padding-top: 0.5vw;
 }
 
+.lastTipBtn {
+  align-self: flex-end;
+}
 .ctgLine svg {
   height: 3vw;
   line-height: 3vw;
@@ -118,7 +128,9 @@
   padding: 2vw 4vw;
   height: 12vw;
 }
-
+.selectNum {
+  padding-bottom: 0;
+}
 .phoneNum {
   display: flex;
   align-items: center;
@@ -183,6 +195,7 @@
   border: 1px orange solid;
   border-radius: 2vw;
   background-color: orange;
+  background-image: linear-gradient(to right, #ffa209, #ff7901);
   color: #fff;
   text-align: center;
   line-height: 10vw;

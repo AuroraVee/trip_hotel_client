@@ -2,18 +2,15 @@ import { List, Button, Image, Card } from 'antd'
 import React, { useState, useEffect } from 'react'
 import { reqHotelRoomDetail, updateRoomList } from '../../../api'
 import { withRouter } from 'react-router-dom'
-import Taocan from '../../../component/Taocan'
 import MovableItem from './../../../component/MovableItem/index'
 import { message } from 'antd'
 import PubSub from 'pubsub-js'
-import { format } from '../../../utils'
 
 function RoomList(props) {
   const name = '北京丽都维景酒店'
 
   const [list, setList] = useState([])
   const [Loading, setLoading] = useState(false)
-  const [date, setDate] = useState(null)
 
   const taocan = {
     live: { title: '住', content: '双床房/晚' },
@@ -28,13 +25,8 @@ function RoomList(props) {
       getData()
     })
 
-    let dateID = PubSub.subscribe('updateDate', (_, date) => {
-      setDate(format(date))
-    })
-
     return () => {
       PubSub.unsubscribe(subID)
-      PubSub.unsubscribe(dateID)
     }
   }, [])
 
@@ -53,7 +45,7 @@ function RoomList(props) {
       hotelName: name,
       taocan,
       roomItem,
-      leaveDate: date,
+      leaveDate: props.date,
     })
   }
 
@@ -77,6 +69,7 @@ function RoomList(props) {
       const res = await updateRoomList(coppiedStateArray)
       if (res.code === 200) {
         message.success('房间布局修改成功')
+        PubSub.publish('changeItemLayoutFromRoomList')
       } else {
         message.error('房间布局修改失败')
       }
